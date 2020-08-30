@@ -117,6 +117,7 @@ size_t safeVsprintf(
     va_list formatArgs,
     char const * const callerDescription
 ) {
+    guardNotNull(buffer, "buffer", "safeVsprintf");
     guardNotNull(format, "format", "safeVsprintf");
     guardNotNull(callerDescription, "callerDescription", "safeVsprintf");
 
