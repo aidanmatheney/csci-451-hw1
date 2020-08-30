@@ -53,7 +53,16 @@ void *safeRealloc(void * const memory, size_t const newSize, char const * const 
 
     void * const newMemory = realloc(memory, newSize);
     if (newMemory == NULL) {
-        abortWithErrorFmt("%s: Failed to reallocate memory to %zu bytes using realloc", callerDescription, newSize);
+        int const reallocErrorCode = errno;
+        char const * const reallocErrorMessage = strerror(reallocErrorCode);
+
+        abortWithErrorFmt(
+            "%s: Failed to reallocate memory to %zu bytes using realloc (error code: %d; error message: \"%s\")",
+            callerDescription,
+            newSize,
+            reallocErrorCode,
+            reallocErrorMessage
+        );
         return NULL;
     }
 
