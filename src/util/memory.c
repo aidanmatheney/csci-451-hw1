@@ -5,6 +5,8 @@
 #include "../../include/util/error.h"
 
 #include <stdlib.h>
+#include <string.h>
+#include <errno.h>
 
 /**
  * Allocate memory of the given size using malloc. If the allocation fails, abort the program with an error message.
@@ -20,7 +22,16 @@ void *safeMalloc(size_t const size, char const * const callerDescription) {
 
     void * const memory = malloc(size);
     if (memory == NULL) {
-        abortWithErrorFmt("%s: Failed to allocate %zu bytes of memory using malloc", callerDescription, size);
+        int const mallocErrorCode = errno;
+        char const * const mallocErrorMessage = strerror(mallocErrorCode);
+
+        abortWithErrorFmt(
+            "%s: Failed to allocate %zu bytes of memory using malloc (error code: %d; error message: \"%s\")",
+            callerDescription,
+            size,
+            mallocErrorCode,
+            mallocErrorMessage
+        );
         return NULL;
     }
 
