@@ -3,6 +3,7 @@
 #include "../../include/util/memory.h"
 #include "../../include/util/error.h"
 
+#include <stdlib.h>
 #include <regex.h>
 
 /**
@@ -18,14 +19,20 @@
  */
 regex_t *safeRegcomp(char const * const pattern, int const flags, char const * const callerDescription) {
     regex_t * const regex = safeMalloc(sizeof *regex, callerDescription);
-    int const regcompResult = regcomp(regex, pattern, flags);
-    if (regcompResult != 0) {
+    int const regcompErrorCode = regcomp(regex, pattern, flags);
+    if (regcompErrorCode != 0) {
+        char regcompErrorMessage[100];
+        regerror(regcompErrorCode, regex, regcompErrorMessage, 100);
+
+        free(regex);
+
         abortWithErrorFmt(
-            "%s: Failed to compile regular expression /%s/%d using regcomp (error: %d)",
+            "%s: Failed to compile regular expression /%s/%d using regcomp (error code: %d; error message: \"%s\")",
             callerDescription,
             pattern,
             flags,
-            regcompResult
+            regcompErrorCode,
+            regcompErrorMessage
         );
         return NULL;
     }
