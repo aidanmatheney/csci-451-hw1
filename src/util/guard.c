@@ -47,7 +47,6 @@ void guardFmt(bool const expression, char const * const errorMessageFormat, ...)
  * message.
  *
  * @param expression The expression to verify is true.
- * @param paramName The name of the parameter involved in the expression.
  * @param errorMessageFormat The error message format (printf).
  * @param errorMessageFormatArgs The error message format arguments (printf).
  */
