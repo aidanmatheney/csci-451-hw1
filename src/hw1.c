@@ -30,13 +30,9 @@ HW1Result hw1(char const * const contactPageUrl) {
 
     WgetGetStringResult wgetResult = wgetGetString(contactPageUrl);
     if (!WgetGetStringResult_isSuccess(wgetResult)) {
-        int const wgetErrorExitCode = WgetGetStringResult_getError(wgetResult);
-        WgetGetStringResult_destroy(wgetResult);
-        return HW1Result_failure(wgetErrorExitCode);
+        return HW1Result_failure(WgetGetStringResult_getErrorAndDestroy(wgetResult));
     }
-
-    char * const contactPageHtml = WgetGetStringResult_getValue(wgetResult);
-    WgetGetStringResult_destroy(wgetResult);
+    char * const contactPageHtml = WgetGetStringResult_getValueAndDestroy(wgetResult);
 
     USSenateContactWebPageParser const contactPageParser = USSenateContactWebPageParser_create();
     StringList const contactAddresses = USSenateContactWebPageParser_parseContactAddresses(

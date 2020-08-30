@@ -15,9 +15,8 @@ int main(void) {
         fprintf(
             stderr,
             "ERROR: Failed to download US Senate Contact web page HTML (wget exit code: %d)\n",
-            HW1Result_getError(hw1Result)
+            HW1Result_getErrorAndDestroy(hw1Result)
         );
-        HW1Result_destroy(hw1Result);
         return EXIT_FAILURE;
     }
     HW1Result_destroy(hw1Result);

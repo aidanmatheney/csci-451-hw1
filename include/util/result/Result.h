@@ -25,7 +25,9 @@
     \
     bool TResult##_isSuccess(Const##TResult result); \
     TValue TResult##_getValue(Const##TResult result); \
+    TValue TResult##_getValueAndDestroy(TResult result); \
     TError TResult##_getError(Const##TResult result); \
+    TError TResult##_getErrorAndDestroy(TResult result);
 
 /**
  * Define (.c file) a generic Result class which can hold either a sucess value or a failure error.
@@ -73,10 +75,22 @@
         return result->value; \
     } \
     \
+    TValue TResult##_getValueAndDestroy(TResult const result) { \
+        TValue const value = TResult##_getValue(result); \
+        TResult##_destroy(result); \
+        return value; \
+    } \
+    \
     TError TResult##_getError(Const##TResult const result) { \
         if (result->success) { \
             abortWithErrorFmt("%s: Cannot get result error. Result is success", STRINGIFY(TResult##_getError)); \
         } \
         \
         return result->error; \
+    } \
+    \
+    TError TResult##_getErrorAndDestroy(TResult const result) { \
+        TError const error = TResult##_getError(result); \
+        TResult##_destroy(result); \
+        return error; \
     }

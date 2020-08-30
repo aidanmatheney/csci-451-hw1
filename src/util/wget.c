@@ -32,6 +32,7 @@ WgetResult wget(char const * const sourceFileUrl, char const * const destination
     );
     int const wgetExitCode = system(wgetCommand);
     free(wgetCommand);
+
     return wgetExitCode == 0 ? WgetResult_success() : WgetResult_failure(wgetExitCode);
 }
 
@@ -54,9 +55,7 @@ WgetGetStringResult wgetGetString(char const * const sourceFileUrl) {
     if (!WgetResult_isSuccess(wgetResult)) {
         unlink(destinationFilePath);
         free(destinationFilePath);
-        int const wgetErrorExitCode = WgetResult_getError(wgetResult);
-        WgetResult_destroy(wgetResult);
-        return WgetGetStringResult_failure(wgetErrorExitCode);
+        return WgetGetStringResult_failure(WgetResult_getErrorAndDestroy(wgetResult));
     }
     WgetResult_destroy(wgetResult);
 

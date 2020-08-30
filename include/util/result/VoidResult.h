@@ -25,6 +25,7 @@
     \
     bool TResult##_isSuccess(Const##TResult result); \
     TError TResult##_getError(Const##TResult result); \
+    TError TResult##_getErrorAndDestroy(TResult result);
 
 /**
  * Define (.c file) a generic Result class which holds no success value but can hold a failure error.
@@ -68,4 +69,10 @@
         } \
         \
         return result->error; \
+    } \
+    \
+    TError TResult##_getErrorAndDestroy(TResult const result) { \
+        TError const error = TResult##_getError(result); \
+        TResult##_destroy(result); \
+        return error; \
     }
