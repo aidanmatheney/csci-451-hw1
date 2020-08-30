@@ -6,6 +6,8 @@
 #include "../../include/util/StringBuilder.h"
 
 #include <stdbool.h>
+#include <string.h>
+#include <errno.h>
 #include <stdio.h>
 
 /**
@@ -24,11 +26,16 @@ FILE *safeFopen(char const * const filePath, char const * const modes, char cons
 
     FILE * const file = fopen(filePath, modes);
     if (file == NULL) {
+        int const fopenErrorCode = errno;
+        char const * const fopenErrorMessage = strerror(fopenErrorCode);
+
         abortWithErrorFmt(
-            "%s: Failed to open file \"%s\" with modes \"%s\" using fopen",
+            "%s: Failed to open file \"%s\" with modes \"%s\" using fopen (error code: %d; error message: \"%s\")",
             callerDescription,
             filePath,
-            modes
+            modes,
+            fopenErrorCode,
+            fopenErrorMessage
         );
         return NULL;
     }
