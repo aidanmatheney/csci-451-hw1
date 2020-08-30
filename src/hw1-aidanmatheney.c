@@ -1,3 +1,10 @@
+/*
+ * Aidan Matheney
+ * aidan.matheney@und.edu
+ *
+ * CSCI 451 HW1
+ */
+
 #include "../include/hw1.h"
 
 #include <stdio.h>
