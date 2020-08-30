@@ -67,13 +67,17 @@ bool safeFgets(
     guardNotNull(file, "file", "safeFgets");
 
     char * const fgetsResult = fgets(buffer, (int)bufferLength, file);
-    int const fgetsError = ferror(file);
+    bool const fgetsError = ferror(file);
     if (fgetsError) {
+        int const fgetsErrorCode = errno;
+        char const * const fgetsErrorMessage = strerror(fgetsErrorCode);
+
         abortWithErrorFmt(
-            "%s: Failed to read %zu chars from file using fgets (error: %d)",
+            "%s: Failed to read %zu chars from file using fgets (error code: %d; error message: \"%s\")",
             callerDescription,
             bufferLength,
-            fgetsError
+            fgetsErrorCode,
+            fgetsErrorMessage
         );
         return false;
     }
