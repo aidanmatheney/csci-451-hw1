@@ -43,8 +43,8 @@ HW1Result hw1(char const * const contactPageUrl) {
     free(contactPageHtml);
 
     StringList_forEach(contactAddresses, NULL, printContactAddressForEachCallback);
-    StringList_forEach(contactAddresses, NULL, freeContactAddressForEachCallback);
 
+    StringList_forEach(contactAddresses, NULL, freeContactAddressForEachCallback);
     StringList_destroy(contactAddresses);
 
     return HW1Result_success();
