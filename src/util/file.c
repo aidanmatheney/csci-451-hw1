@@ -23,6 +23,7 @@
 FILE *safeFopen(char const * const filePath, char const * const modes, char const * const callerDescription) {
     guardNotNull(filePath, "filePath", "safeFopen");
     guardNotNull(modes, "modes", "safeFopen");
+    guardNotNull(callerDescription, "callerDescription", "safeFopen");
 
     FILE * const file = fopen(filePath, modes);
     if (file == NULL) {
@@ -65,6 +66,7 @@ bool safeFgets(
 ) {
     guardNotNull(buffer, "buffer", "safeFgets");
     guardNotNull(file, "file", "safeFgets");
+    guardNotNull(callerDescription, "callerDescription", "safeFgets");
 
     char * const fgetsResult = fgets(buffer, (int)bufferLength, file);
     bool const fgetsError = ferror(file);

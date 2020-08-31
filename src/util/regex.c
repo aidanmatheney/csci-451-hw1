@@ -1,6 +1,7 @@
 #include "../../include/util/regex.h"
 
 #include "../../include/util/memory.h"
+#include "../../include/util/guard.h"
 #include "../../include/util/error.h"
 
 #include <stdlib.h>
@@ -18,6 +19,9 @@
  * @returns The compiled regex object. The caller is responsible for freeing this memory.
  */
 regex_t *safeRegcomp(char const * const pattern, int const flags, char const * const callerDescription) {
+    guardNotNull(pattern, "pattern", "safeRegcomp");
+    guardNotNull(callerDescription, "callerDescription", "safeRegcomp");
+
     regex_t * const regex = safeMalloc(sizeof *regex, callerDescription);
     int const regcompErrorCode = regcomp(regex, pattern, flags);
     if (regcompErrorCode != 0) {

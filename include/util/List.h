@@ -366,6 +366,7 @@
     \
     static void TList##_guardIndexInRange(Const##TList const list, size_t const index, char const * const callerName) { \
         assert(list != NULL); \
+        assert(callerName != NULL); \
         \
         guardFmt( \
             index < list->count, \
@@ -378,6 +379,7 @@
     \
     static void TList##_guardIndexInInsertRange(Const##TList const list, size_t const index, char const * const callerName) { \
         assert(list != NULL); \
+        assert(callerName != NULL); \
         \
         guardFmt( \
             index <= list->count, \
@@ -390,6 +392,7 @@
     \
     static void TList##_guardStartIndexAndCountInRange(Const##TList const list, size_t const startIndex, size_t const count, char const * const callerName) { \
         assert(list != NULL); \
+        assert(callerName != NULL); \
         \
         TList##_guardIndexInRange(list, startIndex, callerName); \
         \
