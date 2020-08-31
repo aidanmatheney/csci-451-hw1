@@ -30,7 +30,7 @@
     TList TList##_fromList(Const##TList list); \
     void TList##_destroy(TList list); \
     \
-    TItem *TList##_items(Const##TList list); \
+    TItem const *TList##_items(Const##TList list); \
     size_t TList##_count(Const##TList list); \
     \
     TItem TList##_get(Const##TList list, size_t index); \
@@ -108,7 +108,7 @@
         free(list); \
     } \
     \
-    TItem *TList##_items(Const##TList const list) { \
+    TItem const *TList##_items(Const##TList const list) { \
         guardNotNull(list, "list", STRINGIFY(TList##_items)); \
         return list->items; \
     } \
