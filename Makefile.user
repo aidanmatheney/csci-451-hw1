@@ -18,6 +18,6 @@ SHARED_LIBRARIES =
 # To find disabled gcc warnings, run `gcc EXISTING_FLAGS_HERE -Q --help=warning`
 CXXFLAGS = -std=c++11 -pedantic -Werror -Wall -Wextra
 CFLAGS   = -std=c11 -pedantic -Werror \
-           -Wall -Wextra -Walloc-zero -Wbad-function-cast -Wcast-align=strict -Wcast-qual -Wconversion -Wdisabled-optimization -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wformat-signedness -Winit-self -Winline -Winvalid-pch -Wjump-misses-init -Wlogical-op -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wnull-dereference -Wold-style-definition -Wpacked -Wpointer-arith -Wshadow -Wstack-usage=1024 -Wstrict-prototypes -Wswitch-default -Wswitch-enum -Wtrampolines -Wundef -Wunsuffixed-float-constants -Wwrite-strings \
+           -Wall -Wextra -Walloc-zero -Wbad-function-cast -Wcast-align -Wcast-qual -Wconversion -Wdisabled-optimization -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wformat-signedness -Winit-self -Winline -Winvalid-pch -Wjump-misses-init -Wlogical-op -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wnull-dereference -Wold-style-definition -Wpacked -Wpointer-arith -Wshadow -Wstack-usage=1024 -Wstrict-prototypes -Wswitch-default -Wswitch-enum -Wtrampolines -Wundef -Wunsuffixed-float-constants -Wwrite-strings \
            -Wno-unused-variable -Wno-unused-parameter
 O        = -O3
