@@ -84,7 +84,7 @@ char const *StringBuilder_chars(ConstStringBuilder const builder) {
  *
  * @param builder The StringBuilder instance.
  *
- * @returns The string length.
+ * @returns The string length of the current value.
  */
 size_t StringBuilder_length(ConstStringBuilder const builder) {
     guardNotNull(builder, "builder", "StringBuilder_length");
@@ -92,10 +92,10 @@ size_t StringBuilder_length(ConstStringBuilder const builder) {
 }
 
 /**
- * Append the given char to the current value.
+ * Append the given character to the current value.
  *
  * @param builder The StringBuilder instance.
- * @param value The char.
+ * @param value The character.
  */
 void StringBuilder_appendChar(StringBuilder const builder, char const value) {
     guardNotNull(builder, "builder", "StringBuilder_appendChar");
@@ -103,11 +103,11 @@ void StringBuilder_appendChar(StringBuilder const builder, char const value) {
 }
 
 /**
- * Append the given chars to the current value.
+ * Append the given characters to the current value.
  *
  * @param builder The StringBuilder instance.
- * @param value The chars.
- * @param count The number of chars.
+ * @param value The characters.
+ * @param count The number of characters.
  */
 void StringBuilder_appendChars(StringBuilder const builder, char const * const value, size_t const count) {
     guardNotNull(builder, "builder", "StringBuilder_appendChars");
@@ -204,11 +204,11 @@ void StringBuilder_appendLineFmtVA(
 }
 
 /**
- * Insert the given char into the current value at the given index.
+ * Insert the given character into the current value at the given index.
  *
  * @param builder The StringBuilder instance.
  * @param index The index.
- * @param value The char.
+ * @param value The character.
  */
 void StringBuilder_insertChar(StringBuilder const builder, size_t const index, char const value) {
     guardNotNull(builder, "builder", "StringBuilder_insertChar");
@@ -216,12 +216,12 @@ void StringBuilder_insertChar(StringBuilder const builder, size_t const index, c
 }
 
 /**
- * Insert the given chars into the current value at the given index.
+ * Insert the given characters into the current value at the given index.
  *
  * @param builder The StringBuilder instance.
  * @param index The index.
- * @param value The chars.
- * @param count The number of chars.
+ * @param value The characters.
+ * @param count The number of characters.
  */
 void StringBuilder_insertChars(
     StringBuilder const builder,
