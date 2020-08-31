@@ -68,6 +68,18 @@ void StringBuilder_destroy(StringBuilder const builder) {
 }
 
 /**
+ * Get the characters that compose the current value.
+ *
+ * @param builder The StringBuilder instance.
+ *
+ * @returns The current value as a character array. This array is not null-terminated.
+ */
+char const *StringBuilder_chars(ConstStringBuilder const builder) {
+    guardNotNull(builder, "builder", "StringBuilder_chars");
+    return CharList_items(builder->chars);
+}
+
+/**
  * Get the length of the current value.
  *
  * @param builder The StringBuilder instance.

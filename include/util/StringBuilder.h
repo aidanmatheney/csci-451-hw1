@@ -12,6 +12,7 @@ StringBuilder StringBuilder_fromChars(char const *value, size_t count);
 StringBuilder StringBuilder_fromString(char const *value);
 void StringBuilder_destroy(StringBuilder builder);
 
+char const *StringBuilder_chars(ConstStringBuilder builder);
 size_t StringBuilder_length(ConstStringBuilder builder);
 
 void StringBuilder_appendChar(StringBuilder builder, char value);
