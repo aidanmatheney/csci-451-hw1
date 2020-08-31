@@ -167,8 +167,8 @@ STATICLIBS = $(foreach l, $(STATIC_LIBRARIES), $(foreach d, $(LIBRARY_DIR) $(sub
 	build-x64       \
 	error           \
 	debug           \
-	object			\
-	strip			\
+	object          \
+	strip           \
 	profile         \
 	assembly        \
 	install-bin     \
@@ -181,11 +181,12 @@ STATICLIBS = $(foreach l, $(STATIC_LIBRARIES), $(foreach d, $(LIBRARY_DIR) $(sub
 	dynamic         \
 	debug-dynamic   \
 	setup           \
-	config			\
+	config          \
 	lines           \
 	clean           \
- 	cleandist		\
-	dist         	\
+ 	cleandist       \
+	dist            \
+	submit         	\
 	help
 
 # default rule
@@ -411,6 +412,14 @@ dist: $(TDIR)
 		$(wildcard $(IDIR) $(SDIR) projectName Makefile $(MAKEFILE_USER) INSTALL README README.md) \
 		| sed 's:^:    ADD :'
 
+# create uncompressed tarball of source files for submission
+submit: SUBMITTARFILE = $$(echo $(TDIR)/$(PROJECT) | tr -d ' ').tar
+submit: $(TDIR)
+	@echo "CREATE TAR $(SUBMITTARFILE)";
+	@tar --exclude=".*" -cvf $(SUBMITTARFILE) --transform 's,^,$(PROJECT)/,' \
+		$(wildcard $(IDIR) $(SDIR) projectName Makefile $(MAKEFILE_USER)) \
+		| sed 's:^:    ADD :'
+
 # print how many lines of code to compile
 lines:
 	@find $(IDIR) $(SDIR) -maxdepth 1 -type f | xargs wc -l
@@ -449,6 +458,7 @@ help:
 	@echo "    clean     : remove object files, libraries and binary"
 	@echo "    cleandist : remove object files"
 	@echo "    dist      : create tarball of source files"
+	@echo "    submit    : create uncompressed tarball of source files for submission"
 	@echo "    help      : print this help"
 	@echo ""
 	@echo "    * = default"
