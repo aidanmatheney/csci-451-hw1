@@ -421,7 +421,7 @@ dist: $(TDIR)
 submit: SUBMITFILE = $(SUBMITDIR)/$(PROJECT).c
 submit: $(SUBMITDIR)
 	@echo "CREATE SINGLE SOURCE FILE $(SUBMITFILE)";
-	@csinglefiler > $(SUBMITFILE)
+	@camalgamator > $(SUBMITFILE)
 
 # print how many lines of code to compile
 lines:
