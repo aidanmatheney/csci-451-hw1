@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../include/util/result.h"
+#include "./result.h"
 
 DECLARE_VOID_RESULT(WgetResult, int)
 WgetResult wget(char const *sourceFileUrl, char const *destinationFilePath);
