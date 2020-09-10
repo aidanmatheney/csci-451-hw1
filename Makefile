@@ -79,14 +79,15 @@ find_staticlibrary=$(firstword $(foreach d, $(LIBRARY_DIR) $(subst :, ,$(LD_LIBR
 SHELL=/bin/bash
 
 # directories
-BDIR := bin
-LDIR := lib
-ODIR := obj
-SDIR := src
-TDIR := tar
-IDIR := include
-ARCH := $(shell getconf LONG_BIT)
-DIR  := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+BDIR      := bin
+LDIR      := lib
+ODIR      := obj
+SDIR      := src
+TDIR      := tar
+SUBMITDIR := "submit"
+IDIR      := include
+ARCH      := $(shell getconf LONG_BIT)
+DIR       := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # ------------------------------------------------------------------------------
 # User variables
@@ -392,6 +393,10 @@ $(TDIR):
 	@echo "MKDIR $@"
 	@mkdir $(TDIR)
 
+$(SUBMITDIR):
+	@echo "MKDIR $@"
+	@mkdir -p $(SUBMITDIR)
+
 $(PREFIX)/$(LDIR)$(ARCH):
 	@echo "MKDIR $@"
 	@mkdir -p $(PREFIX)/$(LDIR)$(ARCH)
@@ -412,13 +417,11 @@ dist: $(TDIR)
 		$(wildcard $(IDIR) $(SDIR) projectName Makefile $(MAKEFILE_USER) INSTALL README README.md) \
 		| sed 's:^:    ADD :'
 
-# create uncompressed tarball of source files for submission
-submit: SUBMITTARFILE = $$(echo $(TDIR)/$(PROJECT) | tr -d ' ').tar
-submit: $(TDIR)
-	@echo "CREATE TAR $(SUBMITTARFILE)";
-	@tar --exclude=".*" -cvf $(SUBMITTARFILE) --transform 's,^,$(PROJECT)/,' \
-		$(wildcard $(IDIR) $(SDIR) projectName Makefile $(MAKEFILE_USER)) \
-		| sed 's:^:    ADD :'
+# create create single source file for submission
+submit: SUBMITFILE = $(SUBMITDIR)/$(PROJECT).c
+submit: $(SUBMITDIR)
+	@echo "CREATE SINGLE SOURCE FILE $(SUBMITFILE)";
+	@csinglefiler > $(SUBMITFILE)
 
 # print how many lines of code to compile
 lines:
@@ -458,7 +461,7 @@ help:
 	@echo "    clean     : remove object files, libraries and binary"
 	@echo "    cleandist : remove object files"
 	@echo "    dist      : create tarball of source files"
-	@echo "    submit    : create uncompressed tarball of source files for submission"
+	@echo "    submit    : create single source file for submission"
 	@echo "    help      : print this help"
 	@echo ""
 	@echo "    * = default"

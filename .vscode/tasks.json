@@ -43,6 +43,14 @@
         "cleandist"
       ],
       "problemMatcher": []
+    },
+    {
+      "label": "make submit",
+      "command": "/usr/bin/make",
+      "args": [
+        "submit"
+      ],
+      "problemMatcher": []
     }
   ]
 }
